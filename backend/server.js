@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 const uri = process.env.ATLAS_URI;
-mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true }
+mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }
 );
 const connection = mongoose.connection;
 connection.once('open', () => {
@@ -20,9 +20,11 @@ connection.once('open', () => {
 
 const exercisesRouter = require('./routes/exercises');
 const usersRouter = require('./routes/users');
+const artistRouter = require('./routes/artists');
 
 app.use('/exercises', exercisesRouter);
 app.use('/users', usersRouter);
+app.use('/artists', artistRouter);
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
